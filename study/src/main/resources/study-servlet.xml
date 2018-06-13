@@ -14,7 +14,10 @@
 
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
+	<!-- <mvc:resources location="/images" mapping="/images/**" />
+	<mvc:resources location="/stylesheets" mapping="/stylesheets/**" />
+	<mvc:resources location="/javascripts" mapping="/javascripts/**" /> -->
 	<mvc:view-resolvers>
-		<mvc:jsp prefix="/" suffix=".jsp"/>
+		<mvc:jsp prefix="/WEB-INF/view/" suffix=".jsp"/>
 	</mvc:view-resolvers>
 </beans>
