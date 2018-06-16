@@ -19,6 +19,6 @@
 	</logger>
 	
 	<logger name="org.springframework.web.servlet">
-		<level value="DEBUG" />
+		<level value="ERROR" />
 	</logger>
 </log4j:configuration>
