@@ -1,10 +1,18 @@
 package net.study.domain.users;
 
-public class User {
+import javax.validation.constraints.*;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
+public class User {
+	@NotEmpty @Size(min=4, max=12)
 	private String userId;
+	@NotEmpty @Size(min=4, max=12)
 	private String password;
+	@NotEmpty
 	private String name;
+	@Email
 	private String email;
 	
 	public User(){
