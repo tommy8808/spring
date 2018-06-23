@@ -8,6 +8,10 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 	
+	<context:component-scan base-package="net.study.dao">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
 	<context:annotation-config />
 	
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
@@ -23,7 +27,19 @@
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
-	<bean id="userDao" class="net.study.dao.users.UserDao" p:dataSource-ref="dataSource" />
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  <property name="dataSource" ref="dataSource" />
+	  <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+	  <constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- <bean id="UserMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="net.study.dao.users.UserDao" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean> -->
 	
 </beans>
 

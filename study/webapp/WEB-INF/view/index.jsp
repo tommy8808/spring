@@ -12,6 +12,5 @@
 <%@ include file="./commons/_top.jspf" %>
 
 hello spring mvc
-<table id="board"></table>
 </body>
 </html>

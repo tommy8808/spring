@@ -2,9 +2,11 @@ package net.study.domain.users;
 
 import javax.validation.constraints.*;
 
+import org.apache.ibatis.type.Alias;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+@Alias("user")
 public class User {
 	@NotEmpty @Size(min=4, max=12)
 	private String userId;
@@ -49,6 +51,30 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public boolean matchUserId(String inputUserId) {
+		if(inputUserId == null){
+			return false;
+		}
+		return inputUserId.equals(this.userId);
+	}
+	
+	public boolean matchPassword(Authenticate authenticate) {
+		if(this.password == null){
+			return false;
+		}
+		return authenticate.matchPassword(this.password);
+	}
+	
+	public User updateTest(User updateUser, String sessionId) {
+		if(!matchUserId(sessionId)){//같은 클래스 내이므로 접근가능
+			throw new IllegalArgumentException();
+		}
+		System.out.println("update 호출");
+		return new User(this.userId, updateUser.password
+				, updateUser.name, updateUser.email);
+	}
+	
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", name=" + name + ", email=" + email + "]";
@@ -90,6 +116,12 @@ public class User {
 			return false;
 		return true;
 	}
+
+	
+
+	
+
+	
 	
 	
 }
