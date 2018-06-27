@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +42,12 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/createNotice", method=RequestMethod.GET)
-	public String createNoticeForm(Notice notice){
+	public String createNoticeForm(Notice notice, HttpSession session){
+		//세션에 user 정보가 있는 지 확인
+		String userId = (String) session.getAttribute("userId");
+		if(userId == null){
+			return "redirect:/users/login/form";
+		}
 		return "board/notice/noticeForm";
 	}
 	
@@ -52,6 +58,13 @@ public class NoticeController {
 		notice.setAtchflNm(savedName);
 		noticeDao.createNotice(notice);
 		return "redirect:/board/listNotice";
+	}
+	
+	@RequestMapping(value="/selectNotice", method=RequestMethod.GET)
+	public String selectNotice(Model model, int bno){
+		Notice notice = noticeDao.selectNotice(bno);
+		model.addAttribute("noticeVO", notice);
+		return "board/notice/noticeDetail";
 	}
 	
 	String uploadFile(String originalName, byte[] fileData) throws Exception{

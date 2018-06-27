@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<%@ include file="../../commons/_top.jspf" %>
+<%@ include file="../../commons/_top.jspf" %>
 	
 	<div class="container">
 		<div class="row">

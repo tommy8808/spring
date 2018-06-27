@@ -28,7 +28,7 @@
 			<tr>
 				<td>${list.bno}</td>
 				<td>
-				<%-- <a href="read.do?no=${article.number}&pageNo=${articlePage.currentPage}"> --%>
+				<a href="selectNotice?bno=${list.bno}">
 					<c:out value="${list.title}"/>
 				</a>
 				</td>
