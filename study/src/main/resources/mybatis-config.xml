@@ -10,6 +10,7 @@
   
   <mappers>
    	<mapper resource="net/study/dao/users/UserMapper.xml"/>
+   	<mapper resource="net/study/dao/board/NoticeMapper.xml"/>
   </mappers>
   
   

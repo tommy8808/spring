@@ -14,13 +14,23 @@
 	
 	<context:annotation-config />
 	
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	<bean id="dataSourceSpied" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="jdbcUrl" value="jdbc:mysql://localhost/spring4fs?characterEncoding=utf8" />
 		<property name="user" value="spring4" />
 		<property name="password" value="spring4"></property>
 	</bean>
-
+	
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+        <constructor-arg ref="dataSourceSpied" />
+        <property name="logFormatter">
+            <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+                <property name="loggingType" value="MULTI_LINE" />
+                <property name="sqlPrefix" value="SQL         :  "/>
+            </bean>
+        </property>
+    </bean>
+	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
@@ -40,6 +50,7 @@
 		<property name="mapperInterface" value="net.study.dao.users.UserDao" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean> -->
+	
 	
 </beans>
 

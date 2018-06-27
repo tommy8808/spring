@@ -13,21 +13,23 @@
 				<!-- <div class="nav-collapse collapse"> -->
 				<div class="">
 					<ul class="nav navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-						<li><a href="/">HOME</a>
+						<li><a href="/">HOME|</a>
 						<c:choose>
 							<c:when test="${empty sessionScope.userId}">
-								<li><a href="/users/login/form">로그인</a>
-								<li><a href="/users/form">회원가입</a>
+								<li><a href="/users/login/form">로그인|</a>
+								<li><a href="/users/form">회원가입|</a>
 							</c:when>
 							<c:otherwise>
-								<li><a href="/users/logout">로그아웃</a>
-								<li><a href="/users/${sessionScope.userId}/form">개인정보수정</a>
+								<li><a href="/users/logout">로그아웃|</a>
+								<li><a href="/users/${sessionScope.userId}/form">개인정보수정|</a>
 							</c:otherwise>
 						</c:choose>
+						<li><a href="/board/listNotice">공지사항|</a>
+						<li><a href="/upload/uploadAjax">파일업로드(ajax)</a>
 					</ul>
 				</div>
 				<br/>
-				<a class="brand" href="/">뚜루루뚜루 뚜루루 뚜루</a>
+				<a class="brand" href="/">잊어버리고 후회하지 말고 적어놔라</a>
 			</div>
 		</div>
 	</div>

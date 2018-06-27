@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="NoticeMapper">
+	<resultMap type="notice" id="noticeMap">
+		<result column ="bno" property="bno" />
+		<result column ="board_type" property="boardType" />
+		<result column ="title" property="title" />
+		<result column ="reg_date" property="regDate" />
+		<result column ="mod_date" property="modDate" />
+		<result column ="writer" property="writer" />
+		<result column ="modifier" property="modifier" />
+		<result column ="content" property="content" />
+		<result column ="atchfl_id" property="atchflId" />
+		<result column ="atchfl_nm" property="atchflNm" />
+	</resultMap>
+
+	<select id="listNotice" parameterType="Notice" resultMap="noticeMap" >
+		/* net.study.dao.board.NoticeMapper.xml listNotice */
+    	select * from BOARD
+    	<if test="bno != null and bno != 0">
+    	where bno = #{bno}
+    	</if>
+    	
+	</select>
+	
+	<select id="selectNotice" resultMap="noticeMap">
+    	select * from BOARD 
+    	where bno = #{bno}
+	</select>
+  
+	<insert id="insertNotice">
+		insert into BOARD (board_type, title, reg_date, writer, content, atchfl_id, atchfl_nm)
+		values ('notice', #{title}, curdate(), #{writer}, #{content}, #{atchflId}, #{atchflNm})
+	</insert>
+	
+	<update id="updateNotice">
+		update BOARD set 
+			title = #{title}
+			, mod_date = curdate()
+			, modifier = #{modifier}
+			, content = #{content}
+			, atchfl_id = #{atchflId}
+			, atchfl_nm = #{atchflNm}
+		where bno = #{bno}
+	</update>
+	
+	<delete id="deleteNotice" parameterType="int">
+		delete from BOARD
+		WHERE bno = #{bno}
+	</delete>
+</mapper>

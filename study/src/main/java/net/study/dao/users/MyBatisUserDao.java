@@ -31,4 +31,9 @@ public class MyBatisUserDao implements UserDao {
 		sqlSession.update("UserMapper.update", user);
 	}
 
+	@Override
+	public void delete(String userId) {
+		sqlSession.delete(userId);
+	}
+
 }
