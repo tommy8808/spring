@@ -8,10 +8,12 @@
     <package name="net.study.domain"/>
   </typeAliases>
   
-  <mappers>
+ <!--  <mappers>
    	<mapper resource="net/study/dao/users/UserMapper.xml"/>
    	<mapper resource="net/study/dao/board/NoticeMapper.xml"/>
-  </mappers>
+   	<mapper resource="net/study/dao/message/MessageMapper.xml"/>
+   	<mapper resource="net/study/dao/message/PointMapper.xml"/>
+  </mappers> -->
   
   
 </configuration>

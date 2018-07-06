@@ -1,4 +1,4 @@
-package net.study.dao.users;
+package old;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
+import net.study.dao.users.UserDao;
 import net.study.domain.users.User;
 
 public class JdbcUserDao extends JdbcDaoSupport implements UserDao{
@@ -75,6 +76,11 @@ public class JdbcUserDao extends JdbcDaoSupport implements UserDao{
 				+ " where userId = ?";
 		getJdbcTemplate().update(sql, user.getPassword(), user.getName()
 				,user.getEmail(), user.getUserId() );
+		
+	}
+
+	@Override
+	public void delete(String userId) {
 		
 	}
 	

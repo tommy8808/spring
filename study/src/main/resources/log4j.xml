@@ -8,11 +8,11 @@
 			<param name="ConversionPattern" value="[%t] [%d{yyyy-MM-dd-HH:mm:ss}] %-5p %c:%M - %m%n" />
 		</layout>
 	</appender>
-	<!-- <appender name="console-infolog" class="org.apache.log4j.ConsoleAppender">
+	<appender name="console-infolog" class="org.apache.log4j.ConsoleAppender">
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d %5p %m%n" />
         </layout>  
-    </appender> -->
+    </appender>
 	<!-- Application Loggers -->
    <!--  <logger name="first" additivity="false">
         <level value="debug" />

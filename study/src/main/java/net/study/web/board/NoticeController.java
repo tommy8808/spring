@@ -1,7 +1,6 @@
 package net.study.web.board;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,11 +9,14 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import net.study.dao.board.NoticeDao;
@@ -67,11 +69,58 @@ public class NoticeController {
 		return "board/notice/noticeDetail";
 	}
 	
+	@RequestMapping(value="/updateNotice", method=RequestMethod.GET)
+	public String updateNoticeForm(Model model, int bno){
+		Notice notice = noticeDao.selectNotice(bno);
+		model.addAttribute("notice", notice);
+		return "board/notice/noticeForm";
+	}
+	
+	@RequestMapping(value="/updateNotice", method=RequestMethod.POST)
+	public String updateNotice(Notice notice, MultipartFile file){
+		//Notice notice = noticeDao.selectNotice(bno);
+		notice.setModifier(notice.getWriter());
+		noticeDao.updateNotice(notice);
+		return "board/notice/listNotice";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/deleteNotice", method=RequestMethod.POST)
+	public ResponseEntity<String> deleteNotice(String bno){
+		//Integer parsedIntegerBno = Integer.parseInt(bno);
+		System.out.println("bno : " + bno);
+		int parsedIntBno =  Integer.parseInt(bno);
+		//Notice notice = noticeDao.selectNotice(bno);
+		String fileName = noticeDao.selectNotice(parsedIntBno).getAtchflNm();
+		log.info(fileName);
+		if(fileName != null){
+			String path=uploadPath;
+			File tmpFile = new File(path+"/"+fileName);
+			log.info("absol path : " + tmpFile.getAbsolutePath());
+			log.info("name : " + tmpFile.getName());
+			if(tmpFile.exists()){
+				tmpFile.delete();
+				log.info("file delete : " + path+fileName);
+			}
+		}
+		noticeDao.deleteNotice(parsedIntBno);
+		//return "board/notice/listNotice";
+		return new ResponseEntity<String>("dd",	HttpStatus.OK);
+	}
+	
 	String uploadFile(String originalName, byte[] fileData) throws Exception{
 		UUID uid = UUID.randomUUID();
 		String savedName = uid.toString() + "_" + originalName;
-		File target = new File(uploadPath, savedName);
-		FileCopyUtils.copy(fileData, target);
+		try {
+			if(!new File(uploadPath).exists()){
+				new File(uploadPath).mkdir();
+			}
+			File target = new File(uploadPath, savedName);
+			FileCopyUtils.copy(fileData, target);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return savedName;
 	}
 }

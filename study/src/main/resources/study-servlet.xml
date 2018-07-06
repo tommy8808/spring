@@ -4,14 +4,27 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+	
+	<context:component-scan base-package="net.study.dao">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	<context:component-scan base-package="net.study.aop"/>
+	<context:component-scan base-package="net.study.service">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	</context:component-scan>
+	
+	
 	<context:component-scan base-package="net.study.web" >
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
-
+	<context:annotation-config />
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
 	<!-- <mvc:resources location="/images" mapping="/images/**" />
@@ -35,4 +48,7 @@
 		<constructor-arg value="C:/Users/User/git/spring/study/webapp/images"></constructor-arg>
 		<!-- <constructor-arg value="C:\upload"></constructor-arg> -->
 	</bean>
+	
+	<!-- aop의 설정을 통한 자동적인 Proxy 객체 생성  -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	</beans>

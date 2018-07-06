@@ -20,10 +20,18 @@
 				<div class="page-header">
 					<h1>공지사항 쓰기</h1>
 				</div>
-				
-				<form:form modelAttribute="notice" cssClass="form-horizontal" action="/board/createNotice" method="post"
+				<c:choose>
+					<c:when test="${notice.bno eq '0'}">
+						<c:set var="action" value="/board/createNotice" />
+					</c:when>
+					<c:otherwise>
+						<c:set var="action" value="/board/updateNotice" />
+					</c:otherwise>
+				</c:choose>
+				<form:form modelAttribute="notice" cssClass="form-horizontal" action="${action}" method="post"
 					 enctype="multipart/form-data">
 					<div class="controll-group">
+						<form:hidden path="bno"/>
 						<label class="control-label" for="title">제목</label>
 						<div class="controls">
 						<c:choose>
@@ -31,7 +39,6 @@
 								<form:input path="title"/>
 								<form:errors path="title" cssClass="error"/>
 							</c:when>
-						
 							<c:otherwise>
 								${notice.title}
 								<%-- <form:input path="title" readonly="true"/> --%>
@@ -57,7 +64,7 @@
 					<div class="controll-group">
 						<label class="control-label" for="file">첨부파일</label>
 						<div class="controls">
-							<%-- <form:input path="atchflNm"/> --%>
+							<form:input path="atchflNm"/>
 							<%-- <form:errors path="atchflNm" cssClass="error"/> --%>
 							<input type="file" name="file">
 						</div>

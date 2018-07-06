@@ -16,6 +16,7 @@ public class User {
 	private String name;
 	@Email
 	private String email;
+	private int point;
 	
 	public User(){
 		
@@ -50,6 +51,14 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
 	}
 	
 	public boolean matchUserId(String inputUserId) {
@@ -116,6 +125,8 @@ public class User {
 			return false;
 		return true;
 	}
+
+	
 
 	
 

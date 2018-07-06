@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="message">
+	<resultMap type="message" id="messageMap">
+		<result column ="mid" property="mid" />
+		<result column ="targetid" property="targetId" />
+		<result column ="sender" property="sender" />
+		<result column ="message" property="message" />
+		<result column ="opendate" property="openDate" />
+		<result column ="senddate" property="sendDate" />
+	</resultMap>
+	
+	<insert id="create">
+		insert into MESSAGE (targetid, sender, message)
+		values (#{targetId}, #{sender}, #{message})
+	</insert>
+	
+</mapper>
