@@ -1,0 +1,15 @@
+java-editor-templates
+
+logger
+${is1:import('org.slf4j.Logger')}${is2:import('org.slf4j.LoggerFactory')}
+private static final Logger log = LoggerFactory.getLogger(${primary_type_name}.class);
+
+springtest (junit에서 어플리케이션 컨텍스트 로딩)
+${is1:import('org.junit.runner.RunWith')}${is2:import('org.springframework.test.context.ContextConfiguration')}
+${is3:import('org.springframework.test.context.junit4.SpringJUnit4ClassRunner')}
+${is4:import('org.springframework.test.context.transaction.TransactionConfiguration')}
+${is5:import('org.springframework.transaction.annotation.Transactional')}
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:/${cursor}.xml")
+@TransactionConfiguration(transactionManager="transactionManager", defaultRollback=true)
+@Transactional
